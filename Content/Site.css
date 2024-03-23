@@ -3,7 +3,7 @@
     margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
-    background-color: blue;
+    
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -13,4 +13,23 @@ textarea {
     max-width: 280px;
 }
 
+body {
+    background-color: #1a1818;
+    
+}
+h2 {
+    color: #f0e6e6;
+}
 
+a {
+    color: #a37979;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #eddada;
+}
+
+p {
+    color: #eddada;
+}

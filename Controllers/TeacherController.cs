@@ -64,7 +64,7 @@ namespace Cumulative1.Controllers
 
             return RedirectToAction("List");
         }
-        //GET : /Author/DeleteConfirm/{id}
+        //GET : /Teacher/DeleteConfirm/{id}
         public ActionResult DeleteConfirm(int id)
         {
             TeacherDataController controller = new TeacherDataController();
@@ -75,7 +75,7 @@ namespace Cumulative1.Controllers
         }
 
 
-        //POST : /Author/Delete/{id}
+        //POST : /Teacher/Delete/{id}
 
         [HttpPost]
         public ActionResult Delete(int id)

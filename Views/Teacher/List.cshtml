@@ -8,6 +8,8 @@
 
 <div id="containerlist">
     <h2>List of Teachers</h2>
+    <div><h3><a href="/Teacher/New"> Add New</a></h3></div>
+
     @{ foreach (Cumulative1.Models.Teacher teacher in Model)
         {
             <div><a href="/Teacher/Show/@teacher.teacherid">@teacher.teacherfname</a></div>

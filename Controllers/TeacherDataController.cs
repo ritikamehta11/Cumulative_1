@@ -50,8 +50,8 @@ namespace Cumulative1.Controllers
                 {
                     //Access Column information by the DB column name as an index
                     int TeacherId = (int)ResultSet["teacherid"];
-                    string TeacherFname = ResultSet["teacherfname"].ToString();
-                    string TeacherLname = ResultSet["teacherlname"].ToString();
+                    string teacherfname = ResultSet["teacherfname"].ToString();
+                    string teacherlname = ResultSet["teacherlname"].ToString();
                     string employeenumber = ResultSet["employeenumber"].ToString();
                     DateTime hiredate = (DateTime)ResultSet["hiredate"];
                     decimal salary = (decimal)ResultSet["salary"];
@@ -59,8 +59,8 @@ namespace Cumulative1.Controllers
 
                     Teacher NewTeacher = new Teacher();
                     NewTeacher.teacherid = TeacherId;
-                    NewTeacher.teacherfname = TeacherFname;
-                    NewTeacher.teacherlname = TeacherLname;
+                    NewTeacher.teacherfname = teacherfname;
+                    NewTeacher.teacherlname = teacherlname;
                     NewTeacher.employeenumber = employeenumber;
                     NewTeacher.hiredate = hiredate;
                     NewTeacher.salary = salary;
@@ -110,16 +110,16 @@ namespace Cumulative1.Controllers
             {
                 //Access Column information by the DB column name as an index
                 int TeacherId = (int)ResultSet["teacherid"];
-                string TeacherFname = ResultSet["teacherfname"].ToString();
-                string TeacherLname = ResultSet["teacherlname"].ToString();
+                string teacherfname = ResultSet["teacherfname"].ToString();
+                string teacherlname = ResultSet["teacherlname"].ToString();
                 string employeenumber = ResultSet["employeenumber"].ToString();
                 DateTime hiredate = (DateTime)ResultSet["hiredate"];
                 decimal salary = (decimal)ResultSet["salary"];
 
                 
                 NewTeacher.teacherid = TeacherId;
-                NewTeacher.teacherfname = TeacherFname;
-                NewTeacher.teacherlname = TeacherLname;
+                NewTeacher.teacherfname = teacherfname;
+                NewTeacher.teacherlname = teacherlname;
                 NewTeacher.employeenumber = employeenumber;
                 NewTeacher.hiredate = hiredate;
                 NewTeacher.salary = salary;
@@ -142,8 +142,8 @@ namespace Cumulative1.Controllers
         /// POST api/TeacherData/AddTeacher 
         /// FORM DATA / POST DATA / REQUEST BODY 
         /// {
-        ///	"TeacherFname":"Ritika",
-        ///	"TeacherLname":"Mehta",
+        ///	"teacherfname":"Ritika",
+        ///	"teacherlname":"Mehta",
         /// </example>
 
         [HttpPost]
@@ -205,6 +205,54 @@ namespace Cumulative1.Controllers
             //SQL QUERY
             cmd.CommandText = "Delete from Teachers where teacherid=@id";
             cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
+        }
+
+
+        /// <summary>
+        /// Updates an Teacher on the MySQL Database. 
+        /// </summary>
+        /// <param name="TeacherInfo">An object with fields that map to the columns of the Teacher's table.</param>
+        /// <example>
+        /// POST api/TeacherData/UpdateTeacher/208 
+        /// FORM DATA / POST DATA / REQUEST BODY 
+        /// {
+        ///	"teacherfname":"Ritika",
+        ///	"teacherlname":"Mehta",
+        ///	"employeenumber":"Likes Coding!",
+        ///	"hiredate":"christine@test.ca"
+        /// }
+        /// </example>
+        [HttpPost]
+        
+        public void UpdateTeacher(int id, [FromBody] Teacher TeacherInfo)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = school.AccessDatabase();
+
+           
+
+            //Open the connection between the web server and database
+            Conn.Open();
+
+            //Establish a new command (query) for our database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL QUERY
+            cmd.CommandText = "update Teachers set teacherfname=@teacherfname, teacherlname=@teacherlname, employeenumber=@employeenumber, hiredate=@hiredate, salary=@salary  where teacherid=@teacherId";
+            cmd.Parameters.AddWithValue("@teacherfname", TeacherInfo.teacherfname);
+            cmd.Parameters.AddWithValue("@teacherlname", TeacherInfo.teacherlname);
+            cmd.Parameters.AddWithValue("@employeenumber", TeacherInfo.employeenumber);
+            cmd.Parameters.AddWithValue("@hiredate", TeacherInfo.hiredate);
+            cmd.Parameters.AddWithValue("@salary", TeacherInfo.salary);
+
+            cmd.Parameters.AddWithValue("@teacherid", id);
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();

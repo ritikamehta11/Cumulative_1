@@ -20,7 +20,6 @@ function AddTeacher() {
 	var salary = document.getElementById('salary').value;
 
 
-
 	var TeacherData = {
 		"TeacherFname": TeacherFname,
 		"TeacherLname": TeacherLname,
@@ -48,5 +47,52 @@ function AddTeacher() {
 
 }
 
+
+
+
+
+function UpdateTeacher(teacherid) {
+
+	//goal: send a request which looks like this:
+	//POST : http://localhost:51326/api/TeacherData/UpdateTeacher/{id}
+	//with POST data of Teachername, bio, email, etc.
+
+	var URL = "http://localhost:51326/api/TeacherData/UpdateTeacher/" + teacherid;
+
+	var rq = new XMLHttpRequest();
+
+
+	var TeacherFname = document.getElementById('teacherfname').value;
+	var TeacherLname = document.getElementById('teacherlname').value;
+	var TeacherEmail = document.getElementById('Teachermail').value;
+	var TeacherBio = document.getElementById('TeacherBio').value;
+
+
+
+	var TeacherData = {
+		"TeacherFname": TeacherFname,
+		"TeacherLname": TeacherLname,
+		"Teacherempnum": Teacherempnum,
+		"salary": salary
+	};
+
+
+	rq.open("POST", URL, true);
+	rq.setRequestHeader("Content-Type", "application/json");
+	rq.onreadystatechange = function () {
+		//ready state should be 4 AND status should be 200
+		if (rq.readyState == 4 && rq.status == 200) {
+			//request is successful and the request is finished
+
+			//nothing to render, the method returns nothing.
+
+
+		}
+
+	}
+	//POST information sent through the .send() method
+	rq.send(JSON.stringify(TeacherData));
+
+}
 
 
